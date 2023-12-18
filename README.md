@@ -43,3 +43,6 @@ Commands are run asynchronously in a goroutine by Bubbletea and, once completed,
 If you need to parse arguments to a command, instead create a wrapper function that takes those arguments and returns a command.
 
 
+### Bubbles
+
+[Bubbles](https://github.com/charmbracelet/bubbles) is a component library for Bubbletea. It includes nice components such as spinners, text inputs, etc.
