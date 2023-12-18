@@ -83,8 +83,18 @@ func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return app, app.newItemTextInput.Focus()
 			}
 
-		// Handle selections as either enter or spacebar
-		case "enter", " ":
+		case " ":
+			if !app.newItemTextInput.Focused() {
+				// Check if the highlighted item is already selected or not
+				_, ok := app.selected[app.cursor]
+				if ok {
+					delete(app.selected, app.cursor)
+				} else {
+					app.selected[app.cursor] = struct{}{}
+				}
+			}
+
+		case "enter":
 			if app.newItemTextInput.Focused() {
 				textInputValue := app.newItemTextInput.Value()
 				if len(textInputValue) == 0 {
