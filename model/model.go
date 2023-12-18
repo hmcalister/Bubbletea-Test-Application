@@ -72,6 +72,10 @@ func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		// Handle arrow keys
 		case "up":
+			// If we pressed up while focused on the new item prompt, defocus it
+			if app.newItemTextInput.Focused() {
+				app.newItemTextInput.Blur()
+			}
 			app.cursor = max(app.cursor-1, 0)
 		case "down":
 			app.cursor = min(app.cursor+1, len(app.choices)-1)
