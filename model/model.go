@@ -78,7 +78,10 @@ func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			app.cursor = max(app.cursor-1, 0)
 		case "down":
-			app.cursor = min(app.cursor+1, len(app.choices)-1)
+			app.cursor = min(app.cursor+1, len(app.choices))
+			if app.cursor == len(app.choices) {
+				return app, app.newItemTextInput.Focus()
+			}
 
 		// Handle selections as either enter or spacebar
 		case "enter", " ":
