@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 
+	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -12,9 +13,10 @@ import (
 type ApplicationStruct struct {
 	// Hold some state about the application
 
-	choices  []string
-	cursor   int
-	selected map[int]interface{}
+	newItemTextInput textinput.Model
+	choices          []string
+	cursor           int
+	selected         map[int]interface{}
 }
 
 // Create a new Application, initializing the values accordingly
