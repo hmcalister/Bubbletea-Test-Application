@@ -112,7 +112,7 @@ func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 
 	// Still not returning any commands.
-	return app, nil
+	return app, cmd
 }
 
 // Define the View function on our model struct.
