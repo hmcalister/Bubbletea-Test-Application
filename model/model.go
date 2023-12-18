@@ -107,6 +107,10 @@ func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	}
 
+	if app.newItemTextInput.Focused() {
+		app.newItemTextInput, cmd = app.newItemTextInput.Update(msg)
+	}
+
 	// Still not returning any commands.
 	return app, nil
 }
