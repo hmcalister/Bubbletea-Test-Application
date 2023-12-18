@@ -141,7 +141,14 @@ func (app ApplicationStruct) View() string {
 		appString += fmt.Sprintf("%s [%s] %s\n", cursor, checked, choice)
 	}
 
+	// Add the text input to the bottom of the app
+	appString += app.newItemTextInput.View()
+
 	// Finally, add a footer
-	appString += "\nPress q to quit.\n"
+	if app.newItemTextInput.Focused() {
+		appString += "\n\n"
+	} else {
+		appString += "\nPress q to quit.\n"
+	}
 	return appString
 }
