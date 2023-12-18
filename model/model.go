@@ -52,6 +52,8 @@ func (app ApplicationStruct) Init() tea.Cmd {
 // We return a new ApplicationStruct, one that has been updated,
 // and a tea.Cmd which can handle I/O.
 func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var cmd tea.Cmd
+
 	// Check what kind of interaction has occurred
 	// Note we use a type switch so we can perform logic
 	// specific to each kind of message
@@ -60,8 +62,13 @@ func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		// Instructions to quit the program.
-		case "ctrl+c", "q":
+		case "ctrl+c":
 			return app, tea.Quit
+
+		case "q":
+			if !app.newItemTextInput.Focused() {
+				return app, tea.Quit
+			}
 
 		// Handle arrow keys
 		case "up":
