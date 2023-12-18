@@ -21,10 +21,14 @@ type ApplicationStruct struct {
 
 // Create a new Application, initializing the values accordingly
 func NewApplicationStruct() ApplicationStruct {
+	newItemTextInput := textinput.New()
+	newItemTextInput.Placeholder = "Add New Item"
+
 	return ApplicationStruct{
-		choices:  []string{"Item 1", "Item 2"},
-		cursor:   0,
-		selected: make(map[int]interface{}),
+		newItemTextInput: newItemTextInput,
+		choices:          []string{"Item 1", "Item 2"},
+		cursor:           0,
+		selected:         make(map[int]interface{}),
 	}
 }
 
