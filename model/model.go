@@ -40,7 +40,7 @@ func NewApplicationStruct() ApplicationStruct {
 // The return type, tea.Cmd, is used for I/O on initialization.
 // TODO: Figure out exactly what this means.
 func (app ApplicationStruct) Init() tea.Cmd {
-	return nil
+	return textinput.Blink
 }
 
 // Define the Update() function on our model struct.
