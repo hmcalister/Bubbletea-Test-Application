@@ -1,6 +1,6 @@
 module hmcalister/bubbleteaTestApp
 
-go 1.21.5
+go 1.21
 
 require (
 	github.com/charmbracelet/bubbles v0.17.1
