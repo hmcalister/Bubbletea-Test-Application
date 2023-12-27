@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -131,14 +132,16 @@ func (app ApplicationStruct) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 // Interestingly, the return type is `string`; we are literally
 // just printing a string out!
 func (app ApplicationStruct) View() string {
-	appString := "TODO List Application\n\n"
+	var appStringBuilder strings.Builder
+	appStringBuilder.WriteString(headerStyle.Render("TODO List Application") + "\n\n")
 
 	// For each choice:
 	for index, choice := range app.choices {
+		var currentItemStringBuilder strings.Builder
 		// If the cursor is on this choice, add it, but default to no cursor
-		cursor := " "
+		cursor := "  "
 		if index == app.cursor {
-			cursor = ">"
+			cursor = ">>"
 		}
 
 		// If the choice is selected, mark it so, but default to no mark
@@ -147,18 +150,26 @@ func (app ApplicationStruct) View() string {
 			checked = "x"
 		}
 
+		itemStr := fmt.Sprintf("%s [%s] %s", cursor, checked, choice)
+		if index == app.cursor {
+			currentItemStringBuilder.WriteString(activeListItemStyle.Render(itemStr))
+		} else {
+			currentItemStringBuilder.WriteString(inactiveListItemStyle.Render(itemStr))
+		}
+		currentItemString := currentItemStringBuilder.String()
+
 		// Add this item to the appString
-		appString += fmt.Sprintf("%s [%s] %s\n", cursor, checked, choice)
+		appStringBuilder.WriteString(listItemBorder.Render(currentItemString) + "\n")
 	}
 
 	// Add the text input to the bottom of the app
-	appString += app.newItemTextInput.View()
+	appStringBuilder.WriteString(textInputStyle.Render(app.newItemTextInput.View()))
 
-	// Finally, add a footer
-	if app.newItemTextInput.Focused() {
-		appString += "\n\n"
-	} else {
-		appString += "\nPress q to quit.\n"
-	}
-	return appString
+	// // Finally, add a footer
+	// if app.newItemTextInput.Focused() {
+	// 	appStringBuilder.WriteString("\n\n")
+	// } else {
+	// 	appStringBuilder.WriteString("\nPress q to quit.\n")
+	// }
+	return appStringBuilder.String()
 }
